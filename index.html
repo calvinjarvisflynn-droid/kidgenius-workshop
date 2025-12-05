@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KidGenius Workshop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>KidGenius Worksheet Generator</h1>
+        <input id="topicInput" type="text" placeholder="Enter worksheet topic...">
+        <button onclick="generate()">Generate Worksheet</button>
+        <pre id="output"></pre>
+    </div>
+    <script>
+        async function generate() {
+            const topic = document.getElementById("topicInput").value;
+            const res = await fetch("/api/generate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ topic })
+            });
+            const data = await res.json();
+            document.getElementById("output").innerText = data.worksheet;
+        }
+    </script>
+</body>
+</html>
